@@ -43,13 +43,14 @@ static void list_cmd(char* fname) {
 	}
 }
 //multi-digit handling
+//create seperate completed and uncompleted files.. pull together into one list.
 static void do_cmd(char* fname, char* tasknum) {
 	fstream f;
 	f.open(fname, fstream::in | fstream::out | fstream::app);
 	string line;
 	string l = to_string(todoLength);
 	const char* s = l.c_str();
-	
+	string temp;
 	if (f.is_open()) {
 		
 		for (int linenum = 0; getline(f, line); linenum++) {
@@ -59,6 +60,7 @@ static void do_cmd(char* fname, char* tasknum) {
 			if (line[0] == tasknum[0] && line[3] != 'x') {
 				line[3] = 'x';
 				line[0] = s[0];
+				temp = line;
 				cout << line[3] <<endl;
 			}	
 			f << line << endl;
